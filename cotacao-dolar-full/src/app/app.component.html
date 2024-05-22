@@ -1,0 +1,54 @@
+<div [ngStyle]="{'background-image': backgroundImage}" class="background-container">
+
+  <div class="buscarPorPeriodo PerDiv">
+    <div class="header mt-4">
+      <h1>Cotação do Dólar - {{ cotacaoAtual }}</h1>
+    </div>
+
+    <h2>Histórico de cotações</h2>
+
+    <div class="checkbox-wrapper-19">
+
+      <label class="mr-3" for="dataInicial">Data inicial:</label>
+      <input id="dataInicial" type="date" name="dataInicial" #dataInicial required>
+      <label class="mr-3" for="dataFinal">Data final:</label>
+      <input id="dataFinal" type="date" name="dataFinal" #dataFinal required>
+
+      <input id="cbtest-19" type="checkbox" [(ngModel)]="apenasCotacoesMenores">
+      <label class="check-box labelcheck" for="cbtest-19"></label>
+      <label for="cbtest-19">Apenas cotações menores que atuais</label>
+    </div>
+    <button mat-raised-button color="primary" type="submit" class="btnPesquisar" (click)="getCotacaoPorPeriodo(dataInicial.value, dataFinal.value)"> Pesquisar </button>
+
+    <div *ngIf="showErrorAlert">
+      <p class="errorAlert">Por favor, forneça datas iniciais e finais válidas.</p>
+    </div>
+    <div class="table-container">
+      <table class="">
+        <thead class=" ListaCotacoes">
+        <tr>
+          <th>Data e Hora</th>
+          <th>Preço</th>
+          <th>Diferença</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let item of cotacaoPorPeriodoLista">
+          <td>{{item.data}}-{{item.hora}}</td>
+          <td>{{item.preco}}</td>
+          <td>{{item.preco - cotacaoAtual | number: '1.2-3'}}</td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+
+  </div>
+
+</div>
+
+
+
+
+
+
+
